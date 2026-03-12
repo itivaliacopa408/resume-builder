@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trainee Resume Builder</title>
+
+<style>
+
+*{box-sizing:border-box}
+
+body{
+font-family:'Segoe UI',Arial;
+margin:0;
+background:linear-gradient(120deg,#eef2f7,#e3ebf7);
+color:#333;
+}
+
+.site-header{
+background:linear-gradient(135deg,#2b6cb0,#1a4c82);
+color:white;
+padding:14px 30px;
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.logo{
+width:36px;
+height:36px;
+background:white;
+border-radius:6px;
+position:relative;
+}
+
+.logo::before{
+content:"";
+position:absolute;
+width:16px;
+height:16px;
+background:#2b6cb0;
+top:5px;
+left:5px;
+}
+
+.logo::after{
+content:"";
+position:absolute;
+width:16px;
+height:16px;
+background:#1a4c82;
+bottom:5px;
+right:5px;
+}
+
+.site-title{
+font-size:20px;
+font-weight:600;
+}
+
+.container{
+display:flex;
+height:calc(100vh - 60px);
+}
+
+/* FORM */
+
+.form-section{
+width:35%;
+padding:30px;
+background:white;
+overflow-y:auto;
+border-right:4px solid #2b6cb0;
+}
+
+.form-section h2{
+color:#2b6cb0;
+}
+
+label{
+font-weight:600;
+font-size:13px;
+}
+
+input,textarea,select{
+width:100%;
+padding:10px;
+margin:6px 0 14px;
+border:1px solid #ccc;
+border-radius:6px;
+}
+
+textarea{min-height:70px}
+
+button{
+padding:10px;
+background:#2b6cb0;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+margin-top:8px;
+}
+
+button:hover{
+background:#1a4c82;
+}
+
+/* PREVIEW */
+
+.preview-section{
+width:65%;
+padding:30px;
+overflow-y:auto;
+}
+
+.resume{
+background:white;
+width:210mm;
+min-height:297mm;
+margin:auto;
+padding:40px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+border-top:8px solid #2b6cb0;
+}
+
+.resume-header{
+border-bottom:2px solid #ddd;
+margin-bottom:20px;
+padding-bottom:10px;
+}
+
+.resume-header h1{
+margin:0;
+color:#2b6cb0;
+}
+
+.contact{
+font-size:14px;
+color:#555;
+}
+
+.section{
+margin-top:20px;
+}
+
+.section h3{
+margin-bottom:6px;
+color:#1a365d;
+border-left:4px solid #2b6cb0;
+padding-left:8px;
+}
+
+.section p{
+font-size:14px;
+line-height:1.6;
+white-space:pre-line;
+}
+
+ul{
+margin:0;
+padding-left:20px;
+font-size:14px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:8px;
+border-bottom:1px solid #ddd;
+font-size:14px;
+text-align:center;
+}
+
+.signature{
+margin-top:40px;
+text-align:right;
+font-weight:600;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="site-header">
+<div class="logo"></div>
+<div class="site-title">Trainee Portfolio & Resume Builder</div>
+</div>
+
+<div class="container">
+
+<div class="form-section">
+
+<h2>Trainee Details</h2>
+
+<label>Name</label>
+<input id="name" oninput="updateResume()">
+
+<label>Full Name</label>
+<input id="fname" oninput="updateResume()">
+
+<label>Email</label>
+<input id="email" oninput="updateResume()">
+
+<label>Phone</label>
+<input id="phone" oninput="updateResume()">
+
+<label>Objective</label>
+<textarea id="objective" oninput="updateResume()"></textarea>
+
+<label>Skills</label>
+<textarea id="skills" oninput="updateResume()"></textarea>
+
+<label>Education</label>
+
+<table>
+<thead>
+<tr>
+<th>Qualification</th>
+<th>Board</th>
+<th>Year</th>
+<th>%</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="eduBody">
+<tr>
+<td><input oninput="updateResume()"></td>
+<td><input oninput="updateResume()"></td>
+<td><input oninput="updateResume()"></td>
+<td><input oninput="updateResume()"></td>
+<td><button onclick="deleteRow(this)">Delete</button></td>
+</tr>
+</tbody>
+</table>
+
+<button onclick="addEducation()">Add Education</button>
+<br/>
+
+<label>Experience / Training</label>
+<textarea id="experience" oninput="updateResume()"></textarea>
+
+<label>Strengths</label>
+<textarea id="strengths" oninput="updateResume()"></textarea>
+
+<label>Address</label>
+<textarea id="address" oninput="updateResume()"></textarea>
+
+<label>Date of Birth</label>
+<input type="date" id="dob" oninput="updateResume()">
+
+<label>Gender</label>
+<select id="gender" oninput="updateResume()">
+<option value="">Select</option>
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
+
+<label>Nationality</label>
+<input id="nationality" oninput="updateResume()">
+
+<label>Languages</label>
+<input id="languages" oninput="updateResume()">
+
+<label>Signature Name</label>
+<input id="sign" oninput="updateResume()">
+
+<button onclick="downloadPDF()">Download PDF</button>
+
+</div>
+
+<div class="preview-section">
+
+<div class="resume" id="resume">
+
+<div class="resume-header">
+<h1 id="r_name">Your Name</h1>
+<p class="contact" id="r_contact"></p>
+</div>
+
+<div class="section">
+<h3>Objective</h3>
+<p id="r_objective"></p>
+</div>
+
+<div class="section">
+<h3>Skills</h3>
+<ul id="r_skills"></ul>
+</div>
+
+<div class="section">
+<h3>Education Qualification</h3>
+
+<table id="r_education">
+<thead>
+<tr>
+<th>Qualification</th>
+<th>Board</th>
+<th>Year</th>
+<th>%</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+
+</div>
+
+<div class="section">
+<h3>Experience / Training</h3>
+<ul id="r_experience"></ul>
+</div>
+
+<div class="section">
+<h3>Strengths</h3>
+<ul id="r_strengths"></ul>
+</div>
+
+<div class="section">
+<h3>Personal Details</h3>
+<p id="r_personal"></p>
+</div>
+
+<div class="section">
+<h3>Declaration</h3>
+<p>
+I hereby declare that the above information is true and correct to the best of my knowledge and belief.
+</p>
+
+<div class="signature">
+<p id="r_sign"></p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+
+function updateResume(){
+
+let name=document.getElementById("name").value
+let fname=document.getElementById("fname").value
+let email=document.getElementById("email").value
+let phone=document.getElementById("phone").value
+let address=document.getElementById("address").value
+let dob=document.getElementById("dob").value
+let gender=document.getElementById("gender").value
+let nationality=document.getElementById("nationality").value
+let languages=document.getElementById("languages").value
+let sign=document.getElementById("sign").value
+
+document.getElementById("r_name").innerText=name
+document.getElementById("r_contact").innerText=email+" | "+phone
+
+document.getElementById("r_personal").innerText=
+"Full Name : "+fname+"\n"+
+"Address : "+address+"\n"+
+"Date of Birth : "+dob+"\n"+
+"Gender : "+gender+"\n"+
+"Nationality : "+nationality+"\n"+
+"Languages : "+languages
+
+document.getElementById("r_objective").innerText=document.getElementById("objective").value
+
+/* SKILLS */
+
+let skills=document.getElementById("skills").value.split(/,|\n/)
+let skillList=document.getElementById("r_skills")
+skillList.innerHTML=""
+
+skills.forEach(s=>{
+if(s.trim()!=""){
+let li=document.createElement("li")
+li.innerText=s.trim()
+skillList.appendChild(li)
+}
+})
+
+/* EXPERIENCE */
+
+let exp=document.getElementById("experience").value.split(/,|\n/)
+let expList=document.getElementById("r_experience")
+expList.innerHTML=""
+
+exp.forEach(e=>{
+if(e.trim()!=""){
+let li=document.createElement("li")
+li.innerText=e.trim()
+expList.appendChild(li)
+}
+})
+
+/* STRENGTHS */
+
+let strengths=document.getElementById("strengths").value.split(/,|\n/)
+let strList=document.getElementById("r_strengths")
+strList.innerHTML=""
+
+strengths.forEach(st=>{
+if(st.trim()!=""){
+let li=document.createElement("li")
+li.innerText=st.trim()
+strList.appendChild(li)
+}
+})
+
+document.getElementById("r_sign").innerText=sign
+
+updateEducationPreview();
+
+}
+
+function updateEducationPreview(){
+
+let previewBody = document.querySelector("#r_education tbody");
+previewBody.innerHTML = "";
+
+let rows = document.querySelectorAll("#eduBody tr");
+
+rows.forEach(row => {
+
+let inputs = row.querySelectorAll("input");
+
+let qualification = inputs[0].value;
+let board = inputs[1].value;
+let year = inputs[2].value;
+let percent = inputs[3].value;
+
+let tr = document.createElement("tr");
+
+tr.innerHTML = `
+<td>${qualification}</td>
+<td>${board}</td>
+<td>${year}</td>
+<td>${percent}</td>
+`;
+
+previewBody.appendChild(tr);
+
+});
+
+}
+
+function addEducation(){
+
+let row=document.createElement("tr")
+
+row.innerHTML=`
+<td><input oninput="updateResume()"></td>
+<td><input oninput="updateResume()"></td>
+<td><input oninput="updateResume()"></td>
+<td><input oninput="updateResume()"></td>
+<td><button onclick="deleteRow(this)">Delete</button></td>
+`
+
+document.getElementById("eduBody").appendChild(row)
+
+}
+
+function deleteRow(btn){
+btn.parentElement.parentElement.remove()
+}
+
+async function downloadPDF(){
+
+const { jsPDF } = window.jspdf
+
+let resume=document.getElementById("resume")
+
+const canvas=await html2canvas(resume)
+
+const imgData=canvas.toDataURL("image/png")
+
+const pdf=new jsPDF("p","mm","a4")
+
+const imgWidth=210
+const imgHeight=canvas.height*imgWidth/canvas.width
+
+pdf.addImage(imgData,"PNG",0,0,imgWidth,imgHeight)
+
+pdf.save("resume.pdf")
+
+}
+
+</script>
+
+</body>
+</html>
