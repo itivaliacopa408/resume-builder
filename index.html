@@ -50,6 +50,7 @@ body { font-family: 'Inter', 'Segoe UI', Arial, sans-serif; background: var(--bg
 .field-group:last-child { margin-bottom: 0; }
 label { display: block; font-size: 11.5px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
 input[type="text"], input[type="email"], input[type="tel"], input[type="date"], textarea, select { width: 100%; padding: 10px 13px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-size: 13.5px; font-family: 'Inter', sans-serif; color: var(--text); background: white; transition: var(--transition); outline: none; }
+input[type="file"] { padding: 8px; border: 1.5px dashed var(--border); background: white; }
 input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus, input[type="date"]:focus, textarea:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
 input::placeholder { color: #c0cfe0; }
 textarea { min-height: 75px; resize: vertical; line-height: 1.5; }
@@ -64,6 +65,33 @@ input[type="color"] { width: 48px; height: 42px; padding: 3px; border-radius: va
 .preset-colors { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
 .preset-dot { width: 26px; height: 26px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; transition: var(--transition); box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
 .preset-dot:hover, .preset-dot.active { border-color: white; transform: scale(1.2); box-shadow: 0 0 0 3px var(--primary); }
+
+.template-picker-container { background: linear-gradient(135deg, #fff7ed, #ffedd5); border: 1px solid #fed7aa; border-radius: var(--radius); padding: 16px; margin-bottom: 16px; }
+.template-picker-title { font-size: 12px; font-weight: 700; color: #c2410c; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+.template-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.template-card { background: white; border: 1.5px solid var(--border); border-radius: 10px; padding: 8px; cursor: pointer; transition: var(--transition); text-align: left; }
+.template-card:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow); }
+.template-card.active { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.12); background: #eff6ff; }
+.template-preview { height: 56px; border-radius: 6px; border: 1px solid #e5e7eb; margin-bottom: 6px; overflow: hidden; position: relative; background: #fff; }
+.template-preview.modern::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, #2563eb 0 24%, #ffffff 24% 100%); }
+.template-preview.modern::after { content: ''; position: absolute; left: 8px; right: 8px; top: 18px; bottom: 8px; background: linear-gradient(90deg, #eef2ff 0 32%, #ffffff 32% 100%); border-radius: 3px; }
+.template-preview.classic::before { content: ''; position: absolute; inset: 0; background: #ffffff; }
+.template-preview.classic::after { content: ''; position: absolute; left: 8px; right: 8px; top: 8px; bottom: 8px; border-top: 3px solid #1f2937; border-bottom: 1px solid #d1d5db; box-shadow: inset 0 -12px 0 #f8fafc; }
+.template-preview.creative::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%); clip-path: polygon(0 0, 100% 0, 100% 38%, 0 62%); }
+.template-preview.creative::after { content: ''; position: absolute; left: 8px; right: 8px; bottom: 6px; top: 20px; background: #ffffff; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
+.template-preview.minimal::before { content: ''; position: absolute; inset: 0; background: #ffffff; }
+.template-preview.minimal::after { content: ''; position: absolute; left: 8px; right: 8px; top: 6px; bottom: 6px; border-top: 2px solid #64748b; box-shadow: inset 0 15px 0 #f1f5f9; }
+.template-preview.professional::before { content: ''; position: absolute; left: 0; top: 0; width: 100%; height: 12px; background: linear-gradient(90deg, #10b981 0%, #059669 100%); }
+.template-preview.professional::after { content: ''; position: absolute; left: 6px; right: 6px; top: 14px; bottom: 6px; background: linear-gradient(90deg, #f0fdf4 0 26%, #ffffff 26% 100%); border-radius: 2px; }
+.template-preview.dynamic::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); clip-path: polygon(0 0, 100% 0, 80% 100%, 0 100%); }
+.template-preview.dynamic::after { content: ''; position: absolute; left: 6px; right: 6px; top: 12px; bottom: 6px; background: #ffffff; border-radius: 3px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.template-preview.executive::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); }
+.template-preview.executive::after { content: '📸'; position: absolute; top: 14px; left: 50%; transform: translateX(-50%); font-size: 22px; color: rgba(255,255,255,0.9); }
+.template-preview.innovator::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%); }
+.template-preview.innovator::after { content: '</>'; position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); font-size: 16px; color: white; font-family: monospace; opacity: 0.9; }
+.template-name { font-size: 11px; font-weight: 700; color: var(--text); }
+.template-desc { font-size: 9px; color: var(--text-muted); margin-top: 2px; line-height: 1.3; }
+
 .edu-table-wrap { overflow-x: auto; margin-bottom: 8px; }
 .edu-table { width: 100%; border-collapse: collapse; font-size: 12px; }
 .edu-table th { background: var(--primary-light); color: var(--primary); font-weight: 700; padding: 8px 6px; text-align: center; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.4px; }
@@ -89,29 +117,27 @@ input[type="color"] { width: 48px; height: 42px; padding: 3px; border-radius: va
 @keyframes tagIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 .tag span { cursor: pointer; font-size: 14px; line-height: 1; color: var(--primary); opacity: 0.7; }
 .tag span:hover { opacity: 1; color: #ef4444; }
-.preview-section { flex: 1; overflow-y: auto; background: #e2e8f0; padding: 28px; display: flex;
-  flex-direction: column;
-  align-items: center; }
+.preview-section { flex: 1; overflow-y: auto; background: #e2e8f0; padding: 28px; display: flex; flex-direction: column; align-items: center; }
 .preview-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; width: 100%; }
 .preview-label { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 6px; }
 .preview-label::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--success); box-shadow: 0 0 0 3px rgba(16,185,129,0.2); animation: pulse 2s infinite; }
 @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 3px rgba(16,185,129,0.2); } 50% { box-shadow: 0 0 0 6px rgba(16,185,129,0.1); } }
 
-/* ===== RESUME - WITH REPEATING HEADERS ===== */
+/* ===== RESUME ===== */
 .resume {
   background: #ffffff;
-  width: 210mm;         /* Fixed A4 Width */
-  height: 297mm;        /* Fixed A4 Height */
+  width: 210mm;
+  height: 297mm;
   min-height: 297mm;
   margin: 0 auto;
   padding: 0;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  border-radius: 2px;   /* Sharper corners for a paper look */
-  overflow: hidden;     /* Prevents content from breaking the page shape */
+  border-radius: 2px;
+  overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
-  flex-shrink: 0;       /* Prevents the flexbox from squishing the page */
+  flex-shrink: 0;
 }
 .resume-header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 36px 40px 30px; position: relative; overflow: hidden; }
 .resume-header::before { content: ''; position: absolute; top: -40px; right: -40px; width: 180px; height: 180px; border-radius: 50%; background: rgba(255,255,255,0.07); }
@@ -120,11 +146,27 @@ input[type="color"] { width: 48px; height: 42px; padding: 3px; border-radius: va
 .resume-contact { display: flex; flex-wrap: wrap; gap: 18px; position: relative; z-index: 1; }
 .resume-contact-item { display: flex; align-items: center; gap: 7px; font-size: 13px; opacity: 0.92; }
 .resume-contact-item i { font-size: 11px; opacity: 0.8; }
+/* Profile Photo (only visible in Executive template) */
+.profile-photo {
+  position: absolute;
+  top: 22px;
+  right: 40px;
+  width: 118px;
+  height: 118px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 6px solid rgba(255,255,255,0.95);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  display: none;
+  z-index: 2;
+}
+.resume.template-executive .profile-photo { display: block; }
+.profile-photo img { width: 100%; height: 100%; object-fit: cover; }
+
 .resume-body { display: grid; grid-template-columns: 1fr 2fr; gap: 0; }
 .resume-sidebar { background: #ffffff; padding: 28px 22px; border-right: 1px solid #e8ecf0; }
 .resume-main { padding: 28px 30px; }
 
-/* SECTION WITH REPEATING HEADER AT TOP OF EACH PAGE */
 .r-section { margin-bottom: 22px; display: block; }
 .r-section:last-child { margin-bottom: 0; }
 .r-section-title { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--primary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
@@ -152,7 +194,38 @@ input[type="color"] { width: 48px; height: 42px; padding: 3px; border-radius: va
 .signature-content { text-align: center; }
 .signature-line { width: 130px; height: 1.5px; background: var(--text); margin-bottom: 6px; }
 .signature-name { font-weight: 700; font-size: 13px; color: var(--text); }
-.signature-date { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+/* Template variants */
+.resume.template-classic { font-family: 'Georgia', 'Times New Roman', serif; box-shadow: 0 10px 24px rgba(0,0,0,0.12); }
+.resume.template-classic .resume-header { background: #ffffff; color: #111827; padding: 28px 40px 22px; border-bottom: 3px solid #111827; }
+.resume.template-classic .resume-header::before, .resume.template-classic .resume-header::after { display: none; }
+.resume.template-classic .resume-name { font-family: 'Georgia', 'Times New Roman', serif; font-size: 30px; letter-spacing: 0.8px; text-transform: uppercase; }
+.resume.template-classic .r-section-title { color: #111827; }
+.resume.template-classic .skill-dot, .resume.template-classic .exp-item::before { background: #111827; }
+
+.resume.template-creative .resume-header { background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%); }
+.resume.template-creative .r-section-title { color: #7c3aed; }
+.resume.template-creative .skill-dot { background: linear-gradient(135deg, #7c3aed, #ec4899); }
+
+.resume.template-minimal .resume-header { background: #ffffff; color: var(--text); border-bottom: 2px solid #64748b; }
+.resume.template-minimal .resume-header::before, .resume.template-minimal .resume-header::after { display: none; }
+.resume.template-minimal .r-section-title { color: #64748b; }
+
+.resume.template-professional .resume-header { background: linear-gradient(90deg, #10b981, #059669); }
+.resume.template-professional .r-section-title { color: #059669; }
+.resume.template-professional .skill-dot { background: #10b981; }
+
+.resume.template-dynamic .resume-header { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.resume.template-dynamic .r-section-title { color: #d97706; }
+.resume.template-dynamic .skill-dot { background: #d97706; }
+
+.resume.template-executive .resume-header { padding: 62px 40px 30px; }
+.resume.template-executive .r-section-title { color: #1e40af; }
+.resume.template-executive .skill-dot { background: #1e40af; }
+
+.resume.template-innovator .resume-header { background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); padding: 36px 40px 30px; }
+.resume.template-innovator .r-section-title { color: #6366f1; }
+.resume.template-innovator .skill-dot { background: #6366f1; }
 
 @media print {
   .site-header, .form-section, .preview-toolbar, .mobile-toggle { display: none !important; }
@@ -162,27 +235,9 @@ input[type="color"] { width: 48px; height: 42px; padding: 3px; border-radius: va
   body { background: white; }
 }
 
-@media screen and (max-width: 1200px) {
-  .resume {
-    transform: scale(0.8);
-    transform-origin: top center;
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  .resume {
-    transform: scale(0.6);
-    transform-origin: top center;
-  }
-}
-
-@media print {
-  @page { size: A4; margin: 0; }
-  body { background: white; }
-  .site-header, .form-section, .preview-toolbar, .loading-overlay { display: none !important; }
-  .preview-section { padding: 0; margin: 0; overflow: visible; }
-  .resume { width: 210mm; height: 297mm; box-shadow: none; transform: scale(1) !important; margin: 0; }
-}
+@media screen and (max-width: 1200px) { .resume { transform: scale(0.8); transform-origin: top center; } }
+@media screen and (max-width: 1000px) { .resume { transform: scale(0.6); transform-origin: top center; } }
+@media print { @page { size: A4; margin: 0; } }
 
 .loading-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.6); z-index: 9999; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
 .loading-overlay.show { display: flex; }
@@ -198,40 +253,30 @@ input[type="color"] { width: 48px; height: 42px; padding: 3px; border-radius: va
   .form-section.open { max-height: 100vh; overflow-y: auto; }
   .mobile-toggle { display: flex; }
   .preview-section { padding: 16px; min-height: 60vh; }
-  .preview-toolbar { margin-bottom: 12px; }
   .resume { width: 100%; }
   .resume-body { grid-template-columns: 1fr; }
   .resume-sidebar { border-right: none; border-bottom: 1px solid #e8ecf0; }
   .resume-name { font-size: 24px; }
   .resume-contact { gap: 10px; }
   .download-btn { font-size: 13px; padding: 12px; }
+  .template-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 480px) {
   .site-header { padding: 0 16px; }
-  .site-title { font-size: 15px; }
   .form-inner { padding: 14px; }
   .preview-section { padding: 10px; }
   .resume-header { padding: 22px 18px 18px; }
   .resume-main, .resume-sidebar { padding: 18px 14px; }
   .resume-name { font-size: 21px; }
   .resume-contact { flex-direction: column; gap: 6px; }
-  .download-btn { font-size: 13px; padding: 12px; }
+  .template-grid { grid-template-columns: 1fr; }
 }
 
 .form-divider { height: 1px; background: var(--border); margin: 8px 0 16px; }
 .toast { position: fixed; bottom: 24px; right: 24px; background: var(--secondary); color: white; padding: 12px 20px; border-radius: var(--radius-sm); font-size: 13.5px; font-weight: 500; box-shadow: var(--shadow-lg); z-index: 9998; display: flex; align-items: center; gap: 8px; transform: translateY(80px); opacity: 0; transition: all 0.35s cubic-bezier(.4,0,.2,1); }
 .toast.show { transform: translateY(0); opacity: 1; }
 .toast i { color: var(--success); }
-
-/* NEW: Suggestions styling */
-.suggestions-section label {
-  font-size: 11.5px;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
 </style>
 </head>
 <body>
@@ -243,6 +288,7 @@ input[type="color"] { width: 48px; height: 42px; padding: 3px; border-radius: va
   </div>
 </div>
 <div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg">Done!</span></div>
+
 <div class="site-header">
   <div class="header-left">
     <div class="logo"><i class="fas fa-file-alt"></i></div>
@@ -253,11 +299,13 @@ input[type="color"] { width: 48px; height: 42px; padding: 3px; border-radius: va
   </div>
   <button class="mobile-toggle" onclick="toggleForm()"><i class="fas fa-sliders-h"></i> Edit</button>
 </div>
+
 <div class="container">
   <div class="form-section" id="formSection">
     <div class="form-inner">
-      <div class="theme-picker-container">
-        <div class="theme-picker-title"><i class="fas fa-palette"></i> Theme</div>
+      <!-- COLOR PICKER - only for Modern & Minimal -->
+      <div class="theme-picker-container" id="themePickerContainer">
+        <div class="theme-picker-title"><i class="fas fa-palette"></i> Theme Color</div>
         <div class="color-inputs-row">
           <input type="color" id="themeColor" value="#2563eb" oninput="syncFromPicker(this.value)">
           <div class="color-field"><label>HEX</label><input type="text" id="hexInput" value="#2563EB"></div>
@@ -274,26 +322,77 @@ input[type="color"] { width: 48px; height: 42px; padding: 3px; border-radius: va
           <div class="preset-dot" style="background:#be185d" onclick="pickPreset('#be185d',this)"></div>
         </div>
       </div>
-      <div class="form-card"><div class="form-card-header"><i class="fas fa-user"></i><span class="form-card-title">Basic</span></div>
+
+      <div class="template-picker-container">
+        <div class="template-picker-title"><i class="fas fa-layer-group"></i> Resume Templates</div>
+        <div class="template-grid">
+          <button type="button" class="template-card active" data-template="modern" onclick="selectTemplate('modern', this)">
+            <div class="template-preview modern"></div>
+            <div class="template-name">Modern</div>
+            <div class="template-desc">Sidebar blue</div>
+          </button>
+          <button type="button" class="template-card" data-template="classic" onclick="selectTemplate('classic', this)">
+            <div class="template-preview classic"></div>
+            <div class="template-name">Classic</div>
+            <div class="template-desc">Traditional</div>
+          </button>
+          <button type="button" class="template-card" data-template="creative" onclick="selectTemplate('creative', this)">
+            <div class="template-preview creative"></div>
+            <div class="template-name">Creative</div>
+            <div class="template-desc">Gradient bold</div>
+          </button>
+          <button type="button" class="template-card" data-template="minimal" onclick="selectTemplate('minimal', this)">
+            <div class="template-preview minimal"></div>
+            <div class="template-name">Minimal</div>
+            <div class="template-desc">Clean simple</div>
+          </button>
+          <button type="button" class="template-card" data-template="professional" onclick="selectTemplate('professional', this)">
+            <div class="template-preview professional"></div>
+            <div class="template-name">Professional</div>
+            <div class="template-desc">Corporate</div>
+          </button>
+          <button type="button" class="template-card" data-template="dynamic" onclick="selectTemplate('dynamic', this)">
+            <div class="template-preview dynamic"></div>
+            <div class="template-name">Dynamic</div>
+            <div class="template-desc">Angular</div>
+          </button>
+          <!-- NEW UNIQUE TEMPLATES -->
+          <button type="button" class="template-card" data-template="executive" onclick="selectTemplate('executive', this)">
+            <div class="template-preview executive"></div>
+            <div class="template-name">Executive</div>
+            <div class="template-desc">Photo ready</div>
+          </button>
+          <button type="button" class="template-card" data-template="innovator" onclick="selectTemplate('innovator', this)">
+            <div class="template-preview innovator"></div>
+            <div class="template-name">Innovator</div>
+            <div class="template-desc">Tech style</div>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="form-card-header"><i class="fas fa-user"></i><span class="form-card-title">Basic</span></div>
         <div class="field-group"><label>Name</label><input type="text" id="name" oninput="updateResume()" placeholder="John Doe"></div>
         <div class="field-group"><label>Email</label><input type="email" id="email" oninput="updateResume()" placeholder="john@example.com"></div>
         <div class="field-group"><label>Phone</label><input type="tel" id="phone" oninput="updateResume()" placeholder="+1 234 567 8900"></div>
+        <!-- Profile Photo field: hidden by default, shown only for Executive template -->
+        <div class="field-group" id="profilePhotoField" style="display: none;">
+          <label>Profile Photo</label>
+          <input type="file" id="photoUpload" accept="image/*" onchange="previewPhoto(this)">
+        </div>
       </div>
+
+      <!-- Objective, Skills, Education, Experience, Strengths, Personal (with Height/Weight), Signature remain exactly the same -->
       <div class="form-card"><div class="form-card-header"><i class="fas fa-bullseye"></i><span class="form-card-title">Objective</span></div>
         <div class="field-group"><label>Career Goal</label><textarea id="objective" oninput="updateResume()" placeholder="Your career goals..."></textarea></div>
-        
-        <!-- Objective Suggestions (now 10+ templates) -->
         <div class="suggestions-section">
           <div class="form-divider"></div>
           <label>Quick Objective Templates</label>
           <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px;">
-            <!-- Original 4 -->
-            <button class="btn btn-outline btn-sm" onclick="insertObjective('Seeking a challenging position in a reputable organization where I can utilize my skills, knowledge, and experience to contribute to the company\'s growth and success.')">General Professional</button>
+            <button class="btn btn-outline btn-sm" onclick="insertObjective(`Seeking a challenging position in a reputable organization where I can utilize my skills, knowledge, and experience to contribute to the company's growth and success.`)">General Professional</button>
             <button class="btn btn-outline btn-sm" onclick="insertObjective('To secure a role in a dynamic environment that offers opportunities for professional development and contribution to team success.')">Dynamic Role</button>
             <button class="btn btn-outline btn-sm" onclick="insertObjective('Motivated individual seeking an entry-level position in IT to apply technical knowledge and grow with innovative projects.')">IT Entry Level</button>
             <button class="btn btn-outline btn-sm" onclick="insertObjective('Experienced professional looking to advance career in management by leading teams and driving strategic initiatives.')">Management</button>
-            
-            <!-- NEW ADDED TEMPLATES -->
             <button class="btn btn-outline btn-sm" onclick="insertObjective('Aspiring software developer seeking an opportunity to contribute to innovative projects and develop cutting-edge applications using modern technologies.')">Software Developer</button>
             <button class="btn btn-outline btn-sm" onclick="insertObjective('To obtain a position in digital marketing where I can leverage my creativity and analytical skills to drive brand growth and engagement.')">Digital Marketing</button>
             <button class="btn btn-outline btn-sm" onclick="insertObjective('Seeking a challenging role in financial analysis to utilize my expertise in data interpretation and risk management for organizational success.')">Finance / Analyst</button>
@@ -324,8 +423,6 @@ input[type="color"] { width: 48px; height: 42px; padding: 3px; border-radius: va
       </div>
       <div class="form-card"><div class="form-card-header"><i class="fas fa-star"></i><span class="form-card-title">Strengths</span></div>
         <div class="field-group"><label>Add Strengths</label><div class="tag-input-box" id="strengthTagBox" onclick="document.getElementById('strengthInput').focus()"><input type="text" id="strengthInput" placeholder="Type and press Enter..." onkeydown="addStrength(event)"></div></div>
-        
-        <!-- Strengths Suggestions (unchanged) -->
         <div class="suggestions-section">
           <div class="form-divider"></div>
           <label>Popular Strengths</label>
@@ -347,6 +444,8 @@ input[type="color"] { width: 48px; height: 42px; padding: 3px; border-radius: va
         <div class="field-group"><label>DOB</label><input type="date" id="dob" oninput="updateResume()"></div>
         <div class="field-group"><label>Gender</label><select id="gender" onchange="updateResume()"><option value="">Select</option><option>Male</option><option>Female</option><option>Other</option></select></div>
         <div class="field-group"><label>Nationality</label><input type="text" id="nationality" oninput="updateResume()" placeholder="American"></div>
+        <div class="field-group"><label>Height</label><input type="text" id="height" oninput="updateResume()" placeholder="175 cm or 5'10&quot;"></div>
+        <div class="field-group"><label>Weight</label><input type="text" id="weight" oninput="updateResume()" placeholder="70 kg"></div>
         <div class="field-group"><label>Languages</label><input type="text" id="languages" oninput="updateResume()" placeholder="English, Spanish..."></div>
       </div>
       <div class="form-card"><div class="form-card-header"><i class="fas fa-signature"></i><span class="form-card-title">Signature</span></div>
@@ -355,6 +454,7 @@ input[type="color"] { width: 48px; height: 42px; padding: 3px; border-radius: va
       <button class="download-btn" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> Download PDF</button>
     </div>
   </div>
+
   <div class="preview-section">
     <div class="preview-toolbar">
       <div class="preview-label">Live Preview</div>
@@ -362,8 +462,12 @@ input[type="color"] { width: 48px; height: 42px; padding: 3px; border-radius: va
         <button class="btn btn-success btn-sm" onclick="downloadPDF()"><i class="fas fa-download"></i> Export</button>
       </div>
     </div>
-    <div class="resume" id="resume">
+    <div class="resume template-modern" id="resume">
       <div class="resume-header">
+        <!-- Profile Photo (only shows in Executive template) -->
+        <div class="profile-photo">
+          <img id="r_photo" src="" alt="Profile Photo">
+        </div>
         <div class="resume-name" id="r_name">Your Name</div>
         <div class="resume-contact">
           <div class="resume-contact-item"><i class="fas fa-envelope"></i> <span id="r_email">email@example.com</span></div>
@@ -409,7 +513,6 @@ input[type="color"] { width: 48px; height: 42px; padding: 3px; border-radius: va
               <div class="signature-content">
                 <div class="signature-line"></div>
                 <div class="signature-name" id="r_sign">Your Signature</div>
-                <!-- <div class="signature-date" id="r_today"></div>  -->
               </div>
             </div>
           </div>
@@ -418,10 +521,21 @@ input[type="color"] { width: 48px; height: 42px; padding: 3px; border-radius: va
     </div>
   </div>
 </div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
-/* document.getElementById('r_today').textContent = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' }); */
+const TEMPLATE_CLASSES = ['template-modern','template-classic','template-creative','template-minimal','template-professional','template-dynamic','template-executive','template-innovator'];
+const TEMPLATE_DEFAULT_COLORS = {
+  modern: '#2563eb', minimal: '#2563eb',
+  classic: '#111827', creative: '#7c3aed', professional: '#10b981',
+  dynamic: '#f59e0b', executive: '#1e40af', innovator: '#6366f1'
+};
+
+let currentTemplate = 'modern';
+
+function debounce(func, delay) { let timeout; return function(...args){ clearTimeout(timeout); timeout = setTimeout(() => func.apply(this, args), delay); }; }
 
 function updateResume() {
   document.getElementById('r_name').textContent = document.getElementById('name').value || 'Your Name';
@@ -442,6 +556,8 @@ function updateResume() {
   document.getElementById('r_sign').textContent = document.getElementById('sign').value || 'Your Signature';
 }
 
+const debouncedUpdate = debounce(updateResume, 300);
+
 function updatePersonalDetails() {
   let html = '';
   const full_name = document.getElementById('fullName').value;
@@ -449,6 +565,8 @@ function updatePersonalDetails() {
   const dob = document.getElementById('dob').value;
   const gen = document.getElementById('gender').value;
   const nat = document.getElementById('nationality').value;
+  const height = document.getElementById('height').value;
+  const weight = document.getElementById('weight').value;
   const lang = document.getElementById('languages').value;
   
   if(full_name) html += `<div class="personal-row"><div class="personal-label">Name</div><div class="personal-value">${full_name}</div></div>`;
@@ -456,6 +574,9 @@ function updatePersonalDetails() {
   if(dob) html += `<div class="personal-row"><div class="personal-label">DOB</div><div class="personal-value">${dob}</div></div>`;
   if(gen) html += `<div class="personal-row"><div class="personal-label">Gender</div><div class="personal-value">${gen}</div></div>`;
   if(nat) html += `<div class="personal-row"><div class="personal-label">Nationality</div><div class="personal-value">${nat}</div></div>`;
+  if(height) html += `<div class="personal-row"><div class="personal-label">Height</div><div class="personal-value">${height}</div></div>`;
+  if(weight) html += `<div class="personal-row"><div class="personal-label">Weight</div><div class="personal-value">${weight}</div></div>`;
+  
   document.getElementById('r_personal').innerHTML = html;
   document.getElementById('r_languages').innerHTML = lang
     ? lang.split(',').map(item => item.trim()).filter(item => item).map(item => `<div class="skill-item"><div class="skill-dot"></div>${item}</div>`).join('')
@@ -540,7 +661,64 @@ function pickPreset(color, el) {
   applyTheme(color);
 }
 
-function syncFromPicker(val) { document.getElementById('hexInput').value = val.toUpperCase(); applyTheme(val); }
+function syncFromPicker(val) {
+  document.getElementById('hexInput').value = val.toUpperCase();
+  applyTheme(val);
+}
+
+/* Photo Upload - works globally but visible only in Executive template */
+function previewPhoto(input) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('r_photo').src = e.target.result;
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+/* Show color picker ONLY for Modern & Minimal */
+function toggleThemePicker(template) {
+  const picker = document.getElementById('themePickerContainer');
+  if (template === 'modern' || template === 'minimal') {
+    picker.style.display = 'block';
+  } else {
+    picker.style.display = 'none';
+  }
+}
+
+/* Show/hide profile photo field based on template */
+function toggleProfilePhotoField(template) {
+  const profileField = document.getElementById('profilePhotoField');
+  if (template === 'executive') {
+    profileField.style.display = 'block';
+  } else {
+    profileField.style.display = 'none';
+    // Optional: clear the file input and photo preview when hiding
+    document.getElementById('photoUpload').value = '';
+    document.getElementById('r_photo').src = '';
+  }
+}
+
+function selectTemplate(template, el) {
+  currentTemplate = template;
+  const resume = document.getElementById('resume');
+  TEMPLATE_CLASSES.forEach(className => resume.classList.remove(className));
+  resume.classList.add(`template-${template}`);
+  document.querySelectorAll('.template-card').forEach(card => card.classList.remove('active'));
+  if (el) el.classList.add('active');
+
+  toggleThemePicker(template);
+  toggleProfilePhotoField(template);  // <-- new line
+
+  /* Non-custom templates (everything except Modern/Minimal) use fixed color */
+  if (template !== 'modern' && template !== 'minimal') {
+    const defaultColor = TEMPLATE_DEFAULT_COLORS[template] || '#2563eb';
+    applyTheme(defaultColor);
+  }
+
+  updateResume();
+}
 
 function toggleForm() { document.getElementById('formSection').classList.toggle('open'); }
 
@@ -567,41 +745,56 @@ async function downloadPDF() {
     const canvas = await html2canvas(element, { scale: 2, useCORS: true, allowTaint: true, logging: false, windowHeight: element.scrollHeight });
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF('p', 'mm', 'a4');
-    
-    const pageWidth = 210;
-    const pageHeight = 297;
-    const canvasWidth = canvas.width;
-    const canvasHeight = canvas.height;
+    const pageWidth = 210; const pageHeight = 297;
+    const canvasWidth = canvas.width; const canvasHeight = canvas.height;
     const imgWidth = pageWidth - 2;
     const imgHeight = (canvasHeight * imgWidth) / canvasWidth;
     const totalPages = Math.ceil(imgHeight / pageHeight);
     
     for (let pageNum = 0; pageNum < totalPages; pageNum++) {
       if (pageNum > 0) pdf.addPage();
-      
       const pageHeightInCanvas = (pageHeight / imgHeight) * canvasHeight;
       const startY = pageNum * pageHeightInCanvas;
       const endY = Math.min(startY + pageHeightInCanvas, canvasHeight);
-      
       const pageCanvas = document.createElement('canvas');
-      pageCanvas.width = canvasWidth;
-      pageCanvas.height = endY - startY;
-      
+      pageCanvas.width = canvasWidth; pageCanvas.height = endY - startY;
       const pageCtx = pageCanvas.getContext('2d');
       pageCtx.drawImage(canvas, 0, startY, canvasWidth, pageCanvas.height, 0, 0, canvasWidth, pageCanvas.height);
-      
       const pageImageData = pageCanvas.toDataURL('image/png');
       const pageImgHeight = (pageCanvas.height * imgWidth) / canvasWidth;
       pdf.addImage(pageImageData, 'PNG', 1, 1, imgWidth, pageImgHeight);
     }
-    
     pdf.save('Professional_Resume.pdf');
   } catch (err) {
     console.error(err);
+    showToast('Error generating PDF. Please try again.', true);
   } finally {
     overlay.classList.remove('show');
   }
 }
+
+function showToast(message, isError = false) {
+  const toast = document.getElementById('toast');
+  const toastMsg = document.getElementById('toastMsg');
+  toast.className = 'toast show';
+  toastMsg.textContent = message;
+  if (isError) {
+    toast.style.backgroundColor = '#ef4444';
+    toast.querySelector('i').className = 'fas fa-exclamation-circle';
+  } else {
+    toast.style.backgroundColor = 'var(--secondary)';
+    toast.querySelector('i').className = 'fas fa-check-circle';
+  }
+  setTimeout(() => { toast.className = 'toast'; }, 3000);
+}
+
+window.onload = () => {
+  updateResume();
+  renderStrengths();
+  applyTheme(document.getElementById('themeColor').value);
+  toggleThemePicker(currentTemplate);
+  toggleProfilePhotoField(currentTemplate); // set initial visibility
+};
 </script>
 </body>
 </html>
